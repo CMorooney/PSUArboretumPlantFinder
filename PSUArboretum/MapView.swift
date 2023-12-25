@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct MapView: View {
     let store: StoreOf<MapReducer>
     
+    
     @State private var region = MapCameraBounds(
         centerCoordinateBounds: MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 40.8123343, longitude: -77.8771519),
@@ -24,8 +25,8 @@ struct MapView: View {
             Map(bounds: region, selection: viewStore.$selectedFeature) {
                 ForEach(viewStore.features) { feature in
                     Marker(feature.commonName,
-                           coordinate: CLLocationCoordinate2D(latitude: feature.itemCoordX,
-                                                              longitude: feature.itemCoordY))
+                           coordinate: CLLocationCoordinate2D(latitude: feature.latitude,
+                                                              longitude: feature.longitude))
                 }
             }
             .mapStyle(.hybrid(elevation: .realistic))
