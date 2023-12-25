@@ -19,5 +19,6 @@ which is [the wkid for mercator](https://github.com/Esri/projection-engine-db-do
 
 - [ ] better map pins
 - [ ] annotation selection "detail view"
+- [ ] just realized I'm missing the entire pollinator garden
       [x] fix map projections
   - data taken from ESRI is showing off by many meters in iOS mapkit.
