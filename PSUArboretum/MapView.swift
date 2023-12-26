@@ -38,3 +38,12 @@ struct MapView: View {
     }
 }
 
+struct MapPreview: PreviewProvider {
+  static var previews: some View {
+    MapView(
+        store: Store(initialState: MapReducer.State(selectedFeature: Binding.constant(nil))) {
+        MapReducer()
+      }
+    )
+  }
+}
