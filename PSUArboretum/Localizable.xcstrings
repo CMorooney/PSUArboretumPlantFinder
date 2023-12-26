@@ -1,110 +1,109 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "commonName: %@" : {
-      "comment" : "string to be formatted with actual feature common name at runtime",
+    "**commonName:** %@" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Common Name: %@"
+            "value" : "**Common Name:** %@"
           }
         }
       }
     },
-    "condition: %@" : {
+    "**condition:** %@" : {
       "comment" : "string to be formatted with actual feature condition at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Condition: %@"
+            "value" : "**Condition:** %@"
           }
         }
       }
     },
-    "family: %@" : {
+    "**family:** %@" : {
       "comment" : "string to be formatted with actual feature family at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Family: %@"
+            "value" : "**Family:** %@"
           }
         }
       }
     },
-    "genus: %@" : {
+    "**genus:** %@" : {
       "comment" : "string to be formatted with actual feature genus at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Genus: %@"
+            "value" : "**Genus:** %@"
           }
         }
       }
     },
-    "lifeForm: %@" : {
+    "**lifeForm:** %@" : {
       "comment" : "string to be formatted with actual feature lifeForm at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Life Form: %@"
+            "value" : "**Life Form:** %@"
           }
         }
       }
     },
-    "location: %@" : {
+    "**location:** %@" : {
       "comment" : "string to be formatted with actual feature location (in the arbo, e.g. 'children's garden') at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Location: %@"
+            "value" : "**Location:** %@"
           }
         }
       }
     },
-    "states: %@" : {
+    "**states:** %@" : {
       "comment" : "string to be formatted with actual feature state (e.g, 'inspected') at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "States: %@"
+            "value" : "**States:** %@"
           }
         }
       }
     },
-    "taxonDist: %@" : {
+    "**taxonDist:** %@" : {
       "comment" : "string to be formatted with actual feature taxonDist at runtime (e.g, 'PA'?)",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxon Dist: %@"
+            "value" : "**Taxon Dist:** %@"
           }
         }
       }
     },
-    "taxonName: %@" : {
+    "**taxonName:** %@" : {
       "comment" : "string to be formatted with actual feature taxonName at runtime",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxon Name: %@"
+            "value" : "**Taxon Name:** %@"
           }
         }
       }
