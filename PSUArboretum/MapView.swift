@@ -12,7 +12,6 @@ import ComposableArchitecture
 struct MapView: View {
     let store: StoreOf<MapReducer>
     
-    
     @State private var region = MapCameraBounds(
         centerCoordinateBounds: MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 40.8123343, longitude: -77.8771519),
@@ -23,7 +22,7 @@ struct MapView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottom) {
-                Map(bounds: region, interactionModes: .all, selection: viewStore.$selectedFeature) {
+                Map(bounds: region, interactionModes: .all, selection: viewStore.$selectedFeatureId) {
                     ForEach(viewStore.features, id: \.id) { feature in
                         Marker(feature.commonName,
                                coordinate: CLLocationCoordinate2D(latitude: feature.latitude,
@@ -36,11 +35,7 @@ struct MapView: View {
                 .onAppear() {
                     viewStore.send(.loadData)
                 }
-                Rectangle()
-                    .fill(.red)
-                    .frame(width: UIScreen.main.bounds.width, height: 200)
-                    .transition(.move(edge: .bottom))
-                    .offset(y: viewStore.selectedFeature != nil ? 0 : 200)
+                FeatureDetailView(feature: viewStore.selectedFeature)
             }
         }
     }

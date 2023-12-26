@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E05B8FA2B3B4DB000EE399E /* FeatureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E05B8F92B3B4DB000EE399E /* FeatureDetailView.swift */; };
+		3E05B8FC2B3B57BA00EE399E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3E05B8FB2B3B57BA00EE399E /* Localizable.xcstrings */; };
 		3E26CC112AB5CF80005F4475 /* PSUArboretumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26CC102AB5CF80005F4475 /* PSUArboretumApp.swift */; };
 		3E26CC132AB5CF80005F4475 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26CC122AB5CF80005F4475 /* MapView.swift */; };
 		3E26CC152AB5CF80005F4475 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E26CC142AB5CF80005F4475 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E05B8F92B3B4DB000EE399E /* FeatureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDetailView.swift; sourceTree = "<group>"; };
+		3E05B8FB2B3B57BA00EE399E /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		3E26CC0D2AB5CF80005F4475 /* PSUArboretum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSUArboretum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E26CC102AB5CF80005F4475 /* PSUArboretumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSUArboretumApp.swift; sourceTree = "<group>"; };
 		3E26CC122AB5CF80005F4475 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 				3E26CC122AB5CF80005F4475 /* MapView.swift */,
 				3E26CC142AB5CF80005F4475 /* Assets.xcassets */,
 				3E26CC162AB5CF80005F4475 /* Preview Content */,
+				3E05B8F92B3B4DB000EE399E /* FeatureDetailView.swift */,
+				3E05B8FB2B3B57BA00EE399E /* Localizable.xcstrings */,
 			);
 			path = PSUArboretum;
 			sourceTree = "<group>";
@@ -145,6 +151,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"en-US",
 			);
 			mainGroup = 3E26CC042AB5CF80005F4475;
 			packageReferences = (
@@ -166,6 +173,7 @@
 			files = (
 				3E26CC182AB5CF80005F4475 /* Preview Assets.xcassets in Resources */,
 				3E26CC152AB5CF80005F4475 /* Assets.xcassets in Resources */,
+				3E05B8FC2B3B57BA00EE399E /* Localizable.xcstrings in Resources */,
 				3E26CC1F2AB5D64D005F4475 /* raw.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E05B8FA2B3B4DB000EE399E /* FeatureDetailView.swift in Sources */,
 				3E26CC242AB5E3C4005F4475 /* DataReader.swift in Sources */,
 				3E26CC222AB5D938005F4475 /* ArboretumFeature.swift in Sources */,
 				3E26CC132AB5CF80005F4475 /* MapView.swift in Sources */,
