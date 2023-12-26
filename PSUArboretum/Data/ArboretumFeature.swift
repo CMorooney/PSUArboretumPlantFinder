@@ -81,4 +81,14 @@ struct ArboretumFeature: Codable, Identifiable, Equatable {
     var genus: String
     var objectId: Int
     var f14: String
+    
+    /// the `picture` field is HTML link tag wrapped around an image tag,
+    /// call this to get just the URL referenced by the `<img>` tag within  `picture`
+    func getScrapedImage() -> String? {
+        let regex = /<img[^>]src="([^"]+)"[^>l]*>/
+        if let match = picture.firstMatch(of: regex) {
+            return String(match.1)
+        }
+        return nil
+    }
 }

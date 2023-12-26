@@ -17,6 +17,10 @@ struct FeatureDetailView: View {
         )
         {
             if let feature {
+                if let photoUrl = feature.getScrapedImage() {
+                    AsyncImage(url: URL(string: photoUrl))
+                        .frame(width: UIScreen.main.bounds.width, height: 150)
+                }
                 Text("commonName: \(feature.commonName)")
                 Text("family: \(feature.family)")
                 Text("genus: \(feature.genus)")
