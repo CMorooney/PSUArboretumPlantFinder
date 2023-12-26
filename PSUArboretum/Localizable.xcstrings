@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "**%@**" : {
+
+    },
     "**commonName:** %@" : {
       "extractionState" : "manual",
       "localizations" : {

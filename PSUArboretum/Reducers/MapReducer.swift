@@ -32,6 +32,7 @@ struct MapReducer {
         case dataLoadBegan
         case dataLoadFailed
         case dataLoadSucceeded([ArboretumFeature])
+        case deselectFeature
         case binding(BindingAction<State>)
     }
     
@@ -54,6 +55,10 @@ struct MapReducer {
                 case .dataLoadSucceeded(let newFeatures):
                     state.loading = false
                     state.features = newFeatures
+                    return .none
+                case .deselectFeature:
+                    state.selectedFeatureId = nil
+                    state.selectedFeature = nil
                     return .none
                 case .binding(\.$selectedFeatureId):
                     if let fId = state.selectedFeatureId {
