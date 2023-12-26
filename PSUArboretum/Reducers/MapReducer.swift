@@ -14,7 +14,7 @@ import SwiftUI
 struct MapReducer {
     struct State: Equatable {
         var features: [ArboretumFeature] = []
-        @Binding var selectedFeature: MapFeature?
+        @BindingState var selectedFeature: Int?
         var loading: Bool = false
         
         static func == (lhs: MapReducer.State, rhs: MapReducer.State) -> Bool {
@@ -24,14 +24,16 @@ struct MapReducer {
         }
     }
     
-    enum Action: Equatable {
+    enum Action: BindableAction, Equatable {
         case loadData
         case dataLoadBegan
         case dataLoadFailed
         case dataLoadSucceeded([ArboretumFeature])
+        case binding(BindingAction<State>)
     }
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
                 case .loadData:
@@ -49,6 +51,8 @@ struct MapReducer {
                 case .dataLoadSucceeded(let newFeatures):
                     state.loading = false
                     state.features = newFeatures
+                    return .none
+                case .binding:
                     return .none
             }
         }

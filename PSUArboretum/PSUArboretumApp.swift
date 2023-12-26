@@ -10,9 +10,8 @@ import ComposableArchitecture
 
 @main
 struct PSUArboretumApp: App {
-    static let store = Store(initialState: MapReducer.State(selectedFeature: Binding.constant(nil))) {
+    static let store = Store(initialState: MapReducer.State(selectedFeature: nil)) {
         MapReducer()
-        ._printChanges()
     }
     var body: some Scene {
         WindowGroup {
