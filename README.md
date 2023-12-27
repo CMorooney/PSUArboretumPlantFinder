@@ -4,7 +4,7 @@
 ![](img/map2.png)
 ![](img/detail.png)
 
-(swiftui/combine playground with latest swiftui mapkit & TheComposableArchitecture)
+(ios playground with latest swiftui mapkit , [TheComposableArchitecture](https://github.com/pointfreeco/swift-composable-architecture), and [Realm](https://realm.io/realm-swift/))
 
 I ripped plant finder data from [the interactive arcGIS/ESRI map](https://datacommons.maps.arcgis.com/apps/webappviewer/index.html?id=88d9267530dc48db8635703130bb084e)
 and am just loading locally for now. (raw.json in Data dir)
