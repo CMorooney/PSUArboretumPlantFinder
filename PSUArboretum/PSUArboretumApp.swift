@@ -7,15 +7,17 @@
 
 import SwiftUI
 import ComposableArchitecture
+import RealmSwift
 
 @main
-struct PSUArboretumApp: App {
-    static let store = Store(initialState: MapReducer.State(selectedFeature: nil)) {
-        MapReducer()
+struct PSUArboretumApp: SwiftUI.App {
+    static let store = Store(initialState: AppReducer.State()) {
+        AppReducer()
     }
     var body: some Scene {
         WindowGroup {
-            MapView(store: PSUArboretumApp.store)
+            AppView(store: PSUArboretumApp.store)
         }
     }
 }
+

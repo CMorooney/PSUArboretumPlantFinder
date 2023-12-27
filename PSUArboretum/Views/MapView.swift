@@ -25,31 +25,28 @@ struct MapView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottom) {
-                if viewStore.loading {
-                    ProgressView()
-                } else {
-                    Map(bounds: region, interactionModes: .all, selection: viewStore.$selectedFeatureId) {
-                        ForEach(viewStore.features, id: \.id) { feature in
-                            Annotation(feature.commonName,
-                                       coordinate: CLLocationCoordinate2D(latitude: feature.latitude,
-                                                                          longitude: feature.longitude),
-                                       anchor: .bottom) {
-                               Circle()
-                                    .foregroundColor(Colors.brightGreen)
-                                    .frame(width: 10, height: 10)
-                            }
-                           .tag(feature.id)
+                Map(bounds: region, interactionModes: .all, selection: viewStore.$selectedFeatureId) {
+                    ForEach(viewStore.features, id: \.id) { feature in
+                        Annotation(feature.commonName,
+                                   coordinate: CLLocationCoordinate2D(latitude: feature.latitude,
+                                                                      longitude: feature.longitude),
+                                   anchor: .bottom) {
+                            Circle()
+                                .foregroundColor(Colors.brightGreen)
+                                .frame(width: 10, height: 10)
                         }
+                                   .tag(feature.id)
                     }
-                    .mapStyle(.hybrid(elevation: .realistic))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onAppear() {
-                        viewStore.send(.loadData)
-                    }
-                    FeatureDetailView(feature: viewStore.selectedFeature, closeRequested: {
-                        viewStore.send(.deselectFeature)
-                    })
                 }
+                .mapStyle(.hybrid(elevation: .realistic))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onAppear() {
+                    viewStore.send(.didAppear)
+                }
+                // todo: properly bind with TCA
+                FeatureDetailView(feature: viewStore.selectedFeature, closeRequested: {
+                    viewStore.send(.deselectFeature)
+                })
             }
         }
     }

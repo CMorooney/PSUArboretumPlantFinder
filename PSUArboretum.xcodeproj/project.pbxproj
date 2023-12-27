@@ -16,12 +16,19 @@
 		3E26CC1F2AB5D64D005F4475 /* raw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E26CC1E2AB5D64C005F4475 /* raw.json */; };
 		3E26CC222AB5D938005F4475 /* ArboretumFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26CC212AB5D938005F4475 /* ArboretumFeature.swift */; };
 		3E26CC242AB5E3C4005F4475 /* DataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26CC232AB5E3C4005F4475 /* DataReader.swift */; };
-		3E26CC372AB5FA81005F4475 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3E26CC362AB5FA81005F4475 /* ComposableArchitecture */; };
 		3E26CC3A2AB5FB6E005F4475 /* MapReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E26CC392AB5FB6E005F4475 /* MapReducer.swift */; };
 		3EA598B02B3B6F26004B856E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA598AF2B3B6F26004B856E /* Colors.swift */; };
 		3EA598B22B3B721F004B856E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA598B12B3B721F004B856E /* Extensions.swift */; };
 		3EA598B42B3B7832004B856E /* ArboOutlineButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA598B32B3B7832004B856E /* ArboOutlineButtonStyle.swift */; };
 		3EEDE07A2AB62D4B0087AFBF /* ArboEsriData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEDE0792AB62D4B0087AFBF /* ArboEsriData.swift */; };
+		3EEE94A92B3C5F4600DFE10F /* RealmArboretumFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94A82B3C5F4600DFE10F /* RealmArboretumFeature.swift */; };
+		3EEE94AB2B3C62CE00DFE10F /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94AA2B3C62CE00DFE10F /* AppReducer.swift */; };
+		3EEE94AD2B3C838B00DFE10F /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94AC2B3C838B00DFE10F /* AppView.swift */; };
+		3EEE94B02B3C9F9200DFE10F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3EEE94AF2B3C9F9200DFE10F /* Realm */; };
+		3EEE94B22B3C9F9200DFE10F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3EEE94B12B3C9F9200DFE10F /* RealmSwift */; };
+		3EEE94B52B3C9FE100DFE10F /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3EEE94B42B3C9FE100DFE10F /* ComposableArchitecture */; };
+		3EEE94B82B3CA2DB00DFE10F /* ArboretumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94B72B3CA2DB00DFE10F /* ArboretumError.swift */; };
+		3EEE94BB2B3CA31200DFE10F /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94BA2B3CA31200DFE10F /* Signal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +47,11 @@
 		3EA598B12B3B721F004B856E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3EA598B32B3B7832004B856E /* ArboOutlineButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArboOutlineButtonStyle.swift; sourceTree = "<group>"; };
 		3EEDE0792AB62D4B0087AFBF /* ArboEsriData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArboEsriData.swift; sourceTree = "<group>"; };
+		3EEE94A82B3C5F4600DFE10F /* RealmArboretumFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmArboretumFeature.swift; sourceTree = "<group>"; };
+		3EEE94AA2B3C62CE00DFE10F /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		3EEE94AC2B3C838B00DFE10F /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		3EEE94B72B3CA2DB00DFE10F /* ArboretumError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArboretumError.swift; sourceTree = "<group>"; };
+		3EEE94BA2B3CA31200DFE10F /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E26CC372AB5FA81005F4475 /* ComposableArchitecture in Frameworks */,
+				3EEE94B22B3C9F9200DFE10F /* RealmSwift in Frameworks */,
+				3EEE94B02B3C9F9200DFE10F /* Realm in Frameworks */,
+				3EEE94B52B3C9FE100DFE10F /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +87,7 @@
 		3E26CC0F2AB5CF80005F4475 /* PSUArboretum */ = {
 			isa = PBXGroup;
 			children = (
+				3EEE94B92B3CA30000DFE10F /* Models */,
 				3E26CC382AB5FB5B005F4475 /* Reducers */,
 				3E26CC202AB5D8CF005F4475 /* Data */,
 				3E26CC102AB5CF80005F4475 /* PSUArboretumApp.swift */,
@@ -97,6 +112,7 @@
 		3E26CC202AB5D8CF005F4475 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				3EEE94A72B3C5F2A00DFE10F /* Realm */,
 				3E26CC1E2AB5D64C005F4475 /* raw.json */,
 				3E26CC212AB5D938005F4475 /* ArboretumFeature.swift */,
 				3E26CC232AB5E3C4005F4475 /* DataReader.swift */,
@@ -109,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				3E26CC392AB5FB6E005F4475 /* MapReducer.swift */,
+				3EEE94AA2B3C62CE00DFE10F /* AppReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -118,6 +135,7 @@
 			children = (
 				3E26CC122AB5CF80005F4475 /* MapView.swift */,
 				3E05B8F92B3B4DB000EE399E /* FeatureDetailView.swift */,
+				3EEE94AC2B3C838B00DFE10F /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,6 +147,31 @@
 				3EA598B32B3B7832004B856E /* ArboOutlineButtonStyle.swift */,
 			);
 			path = Style;
+			sourceTree = "<group>";
+		};
+		3EEE94A72B3C5F2A00DFE10F /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				3EEE94A82B3C5F4600DFE10F /* RealmArboretumFeature.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		3EEE94B62B3CA2C900DFE10F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				3EEE94B72B3CA2DB00DFE10F /* ArboretumError.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3EEE94B92B3CA30000DFE10F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3EEE94B62B3CA2C900DFE10F /* App */,
+				3EEE94BA2B3CA31200DFE10F /* Signal.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,7 +191,9 @@
 			);
 			name = PSUArboretum;
 			packageProductDependencies = (
-				3E26CC362AB5FA81005F4475 /* ComposableArchitecture */,
+				3EEE94AF2B3C9F9200DFE10F /* Realm */,
+				3EEE94B12B3C9F9200DFE10F /* RealmSwift */,
+				3EEE94B42B3C9FE100DFE10F /* ComposableArchitecture */,
 			);
 			productName = PSUArboretum;
 			productReference = 3E26CC0D2AB5CF80005F4475 /* PSUArboretum.app */;
@@ -162,7 +207,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					3E26CC0C2AB5CF80005F4475 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -180,7 +225,8 @@
 			);
 			mainGroup = 3E26CC042AB5CF80005F4475;
 			packageReferences = (
-				3E26CC352AB5FA81005F4475 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				3EEE94AE2B3C9F9200DFE10F /* XCRemoteSwiftPackageReference "realm-swift" */,
+				3EEE94B32B3C9FE100DFE10F /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 3E26CC0E2AB5CF80005F4475 /* Products */;
 			projectDirPath = "";
@@ -210,6 +256,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EEE94AD2B3C838B00DFE10F /* AppView.swift in Sources */,
+				3EEE94BB2B3CA31200DFE10F /* Signal.swift in Sources */,
 				3E05B8FA2B3B4DB000EE399E /* FeatureDetailView.swift in Sources */,
 				3EA598B22B3B721F004B856E /* Extensions.swift in Sources */,
 				3EA598B02B3B6F26004B856E /* Colors.swift in Sources */,
@@ -219,7 +267,10 @@
 				3EA598B42B3B7832004B856E /* ArboOutlineButtonStyle.swift in Sources */,
 				3E26CC3A2AB5FB6E005F4475 /* MapReducer.swift in Sources */,
 				3EEDE07A2AB62D4B0087AFBF /* ArboEsriData.swift in Sources */,
+				3EEE94AB2B3C62CE00DFE10F /* AppReducer.swift in Sources */,
 				3E26CC112AB5CF80005F4475 /* PSUArboretumApp.swift in Sources */,
+				3EEE94B82B3CA2DB00DFE10F /* ArboretumError.swift in Sources */,
+				3EEE94A92B3C5F4600DFE10F /* RealmArboretumFeature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +281,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -262,6 +314,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -290,6 +343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -322,6 +376,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -422,20 +477,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3E26CC352AB5FA81005F4475 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+		3EEE94AE2B3C9F9200DFE10F /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.45.2;
+			};
+		};
+		3EEE94B32B3C9FE100DFE10F /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.5.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3E26CC362AB5FA81005F4475 /* ComposableArchitecture */ = {
+		3EEE94AF2B3C9F9200DFE10F /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3E26CC352AB5FA81005F4475 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			package = 3EEE94AE2B3C9F9200DFE10F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		3EEE94B12B3C9F9200DFE10F /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3EEE94AE2B3C9F9200DFE10F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		3EEE94B42B3C9FE100DFE10F /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3EEE94B32B3C9FE100DFE10F /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */

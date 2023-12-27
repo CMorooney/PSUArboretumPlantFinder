@@ -51,11 +51,7 @@ struct FeatureDetailView: View {
                         }
                         Text("**family:** \(feature.family.capitalized)").padding([.leading, .top], 20)
                         Text("**genus:** \(feature.genus.capitalized)").padding(.leading, 20)
-                        Text("**taxonName:** \(feature.taxonName.capitalized)").padding(.leading, 20)
                         Text("**lifeForm:** \(feature.lifeForm.capitalized)").padding(.leading, 20)
-                        Text("**condition:** \(feature.condition.capitalized)").padding(.leading, 20)
-                        Text("**location:** \(feature.location.capitalized)").padding(.leading, 20)
-                        Text("**taxonDist:** \(feature.taxonDist.capitalized)").padding(.leading, 20)
                         Text("**states:** \(feature.states.capitalized)").padding(.leading, 20)
                     }
                 }
