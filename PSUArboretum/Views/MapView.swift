@@ -42,14 +42,14 @@ struct MapView: View {
                 }
                 .mapStyle(.imagery)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                if let l = viewStore.selectedLocation {
+                if let selectedLocation = viewStore.selectedLocation {
                     ZStack(alignment: .center) {
                         Rectangle()
                             .fill(Colors.offWhite)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .ignoresSafeArea()
                         HStack(alignment: .center) {
-                            Text("**\(l)**")
+                            Text("**\(selectedLocation)**")
                             Image(systemName: "chevron.up.chevron.down")
                         }
                         .onTapGesture(perform: {
