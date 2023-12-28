@@ -25,7 +25,12 @@ struct MapView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottom) {
-                Map(bounds: region, interactionModes: .all, selection: viewStore.$selectedFeatureId) {
+                Map(bounds: region,
+                    interactionModes: .all,
+                    selection: viewStore.binding(
+                        get: \.selectedFeatureId,
+                        send: MapReducer.Action.featureSelected)
+                ) {
                     ForEach(viewStore.features, id: \.id) { feature in
                         Annotation(feature.commonName,
                                    coordinate: CLLocationCoordinate2D(latitude: feature.latitude,

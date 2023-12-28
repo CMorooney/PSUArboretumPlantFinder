@@ -21,7 +21,7 @@ struct MapReducer {
         
         var loading: Bool = false
         
-        @BindingState var selectedFeatureId: Int? = nil
+        var selectedFeatureId: Int? = nil
         @PresentationState var selectedFeature: ArboretumFeature? = nil
         
         static func == (lhs: MapReducer.State, rhs: MapReducer.State) -> Bool {
@@ -30,13 +30,13 @@ struct MapReducer {
         }
     }
     
-    enum Action: BindableAction, Equatable {
+    enum Action: Equatable {
         case none
         case didAppear
         case localDataBeganLoad
         case localDataLoaded([ArboretumFeature])
+        case featureSelected(Int?)
         case deselectFeature
-        case binding(BindingAction<State>)
     }
     
     struct Environment {
@@ -48,7 +48,6 @@ struct MapReducer {
     }
    
     var body: some ReducerOf<Self> {
-        BindingReducer()
         Reduce { state, action in
             switch action {
                 case .none:
@@ -71,14 +70,10 @@ struct MapReducer {
                     state.selectedFeatureId = nil
                     state.selectedFeature = nil
                     return .none
-                case .binding(\.$selectedFeatureId):
-                    if let fId = state.selectedFeatureId {
+                case .featureSelected(let selectedFeatureId):
+                    if let fId = selectedFeatureId {
                         state.selectedFeature = state.features.first(where: { f in f.id == fId })
-                    } else {
-                        state.selectedFeature = nil
                     }
-                    return .none
-                case .binding:
                     return .none
             }
         }
