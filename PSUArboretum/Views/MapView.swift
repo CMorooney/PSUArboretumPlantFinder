@@ -48,10 +48,11 @@ struct MapView: View {
                 .onAppear() {
                     viewStore.send(.didAppear)
                 }
-                // todo: properly bind with TCA
-                FeatureDetailView(feature: viewStore.selectedFeature, closeRequested: {
-                    viewStore.send(.deselectFeature)
-                })
+                .sheet(
+                    store: self.store.scope(state: \.$featureDetailState, action: MapReducer.Action.featureDetail)
+                ) { store in
+                    FeatureDetailView(store: store)
+                }
             }
         }
     }

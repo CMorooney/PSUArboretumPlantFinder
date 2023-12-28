@@ -21,8 +21,9 @@ struct MapReducer {
         
         var loading: Bool = false
         
+        @PresentationState var featureDetailState: FeatureDetailReducer.State?
         var selectedFeatureId: Int? = nil
-        @PresentationState var selectedFeature: ArboretumFeature? = nil
+        var selectedFeature: ArboretumFeature? = nil
         
         static func == (lhs: MapReducer.State, rhs: MapReducer.State) -> Bool {
             return lhs.features == rhs.features &&
@@ -31,12 +32,12 @@ struct MapReducer {
     }
     
     enum Action: Equatable {
-        case none
         case didAppear
         case localDataBeganLoad
         case localDataLoaded([ArboretumFeature])
         case featureSelected(Int?)
         case deselectFeature
+        case featureDetail(PresentationAction<FeatureDetailReducer.Action>)
     }
     
     struct Environment {
@@ -46,11 +47,19 @@ struct MapReducer {
             self.realm = try! Realm()
         }
     }
-   
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                case .none:
+                case .featureDetail(let pAction):
+                    switch pAction {
+                        case .presented(let action):
+                            if action == FeatureDetailReducer.Action.close {
+                                state.featureDetailState = nil
+                            }
+                        default:
+                            return .none
+                    }
                     return .none
                 case .didAppear:
                     return environment.realm
@@ -71,11 +80,16 @@ struct MapReducer {
                     state.selectedFeature = nil
                     return .none
                 case .featureSelected(let selectedFeatureId):
-                    if let fId = selectedFeatureId {
-                        state.selectedFeature = state.features.first(where: { f in f.id == fId })
+                    if let fId = selectedFeatureId,
+                       let selectedFeature = state.features.first(where: { f in f.id == fId }) {
+                        state.selectedFeature = selectedFeature
+                        state.featureDetailState = FeatureDetailReducer.State(selectedFeature: selectedFeature)
                     }
                     return .none
             }
+        }
+        .ifLet(\.$featureDetailState, action: /Action.featureDetail) {
+            FeatureDetailReducer()
         }
     }
 }

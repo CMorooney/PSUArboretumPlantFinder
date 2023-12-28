@@ -29,6 +29,7 @@
 		3EEE94B52B3C9FE100DFE10F /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3EEE94B42B3C9FE100DFE10F /* ComposableArchitecture */; };
 		3EEE94B82B3CA2DB00DFE10F /* ArboretumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94B72B3CA2DB00DFE10F /* ArboretumError.swift */; };
 		3EEE94BB2B3CA31200DFE10F /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE94BA2B3CA31200DFE10F /* Signal.swift */; };
+		3EEF19822B3DAE720020D82B /* FeatureDetailReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF19812B3DAE720020D82B /* FeatureDetailReducer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		3EEE94AC2B3C838B00DFE10F /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		3EEE94B72B3CA2DB00DFE10F /* ArboretumError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArboretumError.swift; sourceTree = "<group>"; };
 		3EEE94BA2B3CA31200DFE10F /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
+		3EEF19812B3DAE720020D82B /* FeatureDetailReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDetailReducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			children = (
 				3E26CC392AB5FB6E005F4475 /* MapReducer.swift */,
 				3EEE94AA2B3C62CE00DFE10F /* AppReducer.swift */,
+				3EEF19812B3DAE720020D82B /* FeatureDetailReducer.swift */,
 			);
 			path = Reducers;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				3EEE94AB2B3C62CE00DFE10F /* AppReducer.swift in Sources */,
 				3E26CC112AB5CF80005F4475 /* PSUArboretumApp.swift in Sources */,
 				3EEE94B82B3CA2DB00DFE10F /* ArboretumError.swift in Sources */,
+				3EEF19822B3DAE720020D82B /* FeatureDetailReducer.swift in Sources */,
 				3EEE94A92B3C5F4600DFE10F /* RealmArboretumFeature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
