@@ -23,7 +23,10 @@ struct MapView: View {
     )
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store,
+                      observe: { (features: $0.features, selectedFeatureId: $0.selectedFeatureId ) },
+                      removeDuplicates: ==
+        ) { viewStore in
             ZStack(alignment: .bottom) {
                 Map(bounds: region,
                     interactionModes: .all,

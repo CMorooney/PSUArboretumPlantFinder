@@ -29,7 +29,6 @@ struct FeatureDetailReducer {
                     state.selectedFeature = feature
                     return .none
                 case .close:
-                    print("close")
                     return .none
             }
         }
