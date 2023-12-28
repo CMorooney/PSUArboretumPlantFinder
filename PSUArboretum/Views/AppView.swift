@@ -13,11 +13,13 @@ struct AppView: View {
     let store: StoreOf<AppReducer>
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store,
+                      observe: \.selectedTab,
+                      removeDuplicates: ==
+        ){ viewStore in
             TabView(
                 selection: viewStore.binding(
-                    get: \.selectedTab,
-                    send: AppReducer.Action.tabSelected
+                    send: { AppReducer.Action.tabSelected($0) }
                 )
             ) {
                 MapView(store: self.store.scope(state: \.mapState, action: AppReducer.Action.map))

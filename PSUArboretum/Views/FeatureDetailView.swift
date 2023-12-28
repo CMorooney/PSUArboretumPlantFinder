@@ -63,8 +63,6 @@ struct FeatureDetailView: View {
             .foregroundColor(Colors.offWhite)
             .transition(.move(edge: .bottom))
             .offset(y: viewStore.selectedFeature != nil ? 0 : height)
-            .presentationDetents([.medium])
-            .presentationBackground(Colors.blackish.opacity(0.85))
         }
     }
 }

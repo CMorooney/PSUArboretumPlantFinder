@@ -19,6 +19,7 @@ struct ArboretumFeature: Codable, Identifiable, Equatable {
         case family = "Family"
         case genus = "Genus"
         case objectId = "OBJECTID"
+        case location = "Location"
     }
     
     var id: Int { objectId }
@@ -32,6 +33,7 @@ struct ArboretumFeature: Codable, Identifiable, Equatable {
     var family: String
     var genus: String
     var objectId: Int
+    var location: String
     
     init(_ feature: RealmArboretumFeature) {
         objectId = feature.id
@@ -43,6 +45,7 @@ struct ArboretumFeature: Codable, Identifiable, Equatable {
         lifeForm = feature.lifeForm
         states = feature.states
         picture = feature.picture
+        location = feature.location
     }
 
     /// the `picture` field is HTML link tag wrapped around an image tag,

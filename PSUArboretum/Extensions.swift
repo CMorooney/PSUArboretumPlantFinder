@@ -26,6 +26,12 @@ extension Color {
     }
 }
 
+extension String {
+  var isBlank: Bool {
+    return allSatisfy({ $0.isWhitespace })
+  }
+}
+
 extension Realm {
     func save<T: Object>(_ object: T) -> Effect<Signal> {
         let p = Future<Signal, Never>() { promise in

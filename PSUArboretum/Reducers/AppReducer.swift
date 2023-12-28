@@ -33,12 +33,14 @@ struct AppReducer {
         let scheduler: AnySchedulerOf<DispatchQueue>
         
         init(_ scheduler: AnySchedulerOf<DispatchQueue> = AnyScheduler.main) {
+            let config = Realm.Configuration(schemaVersion: 2)
+            Realm.Configuration.defaultConfiguration = config
             self.realm = try! Realm()
             self.scheduler = scheduler
         }
     }
     
-    enum Tab {
+    enum Tab: Equatable {
         case map
     }
     

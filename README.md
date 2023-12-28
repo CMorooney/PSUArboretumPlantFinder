@@ -3,6 +3,7 @@
 ![](img/map1.png)
 ![](img/map2.png)
 ![](img/detail.png)
+![](img/loc_selection.png)
 
 (ios playground with latest swiftui mapkit , [TheComposableArchitecture](https://github.com/pointfreeco/swift-composable-architecture), and [Realm](https://realm.io/realm-swift/))
 

@@ -18,6 +18,7 @@ class RealmArboretumFeature: Object {
     @Persisted var lifeForm: String = ""
     @Persisted var states: String = ""
     @Persisted var picture: String = ""
+    @Persisted var location: String = ""
     
     convenience init(_ feature: ArboretumFeature) {
         self.init()
@@ -30,6 +31,7 @@ class RealmArboretumFeature: Object {
         lifeForm = feature.lifeForm
         states = feature.states
         picture = feature.picture
+        location = feature.location
     }
     
     /// the `picture` field is HTML link tag wrapped around an image tag,

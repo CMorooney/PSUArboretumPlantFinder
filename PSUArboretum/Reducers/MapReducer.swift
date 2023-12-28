@@ -17,26 +17,29 @@ struct MapReducer {
     let environment = Environment()
     
     struct State: Equatable {
-        var features: [ArboretumFeature] = []
-        
         var loading: Bool = false
+        
+        var allMapFeatures: [ArboretumFeature] = []
+        var displayedMapFeatures: [ArboretumFeature] = []
+        
+        @PresentationState var locationSelectorState: LocationSelectorReducer.State?
+        var featureLocations: [String] = []
+        var selectedLocation: String?
         
         @PresentationState var featureDetailState: FeatureDetailReducer.State?
         var selectedFeatureId: Int? = nil
         var selectedFeature: ArboretumFeature? = nil
-        
-        static func == (lhs: MapReducer.State, rhs: MapReducer.State) -> Bool {
-            return lhs.features == rhs.features &&
-            lhs.selectedFeature == rhs.selectedFeature
-        }
     }
     
     enum Action: Equatable {
         case didAppear
         case localDataBeganLoad
         case localDataLoaded([ArboretumFeature])
+        case locationSelected(String?)
         case featureSelected(Int?)
         case deselectFeature
+        case locationTapped
+        case locationSelector(PresentationAction<LocationSelectorReducer.Action>)
         case featureDetail(PresentationAction<FeatureDetailReducer.Action>)
     }
     
@@ -51,16 +54,44 @@ struct MapReducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                case .locationSelected(let newLocation):
+                    state.selectedLocation = newLocation
+                    state.displayedMapFeatures = state.allMapFeatures.filter { $0.location == newLocation }
+                    return .none
+                case .locationTapped:
+                    if let loc = state.selectedLocation {
+                        state.locationSelectorState = LocationSelectorReducer.State(
+                            selectedLocation: loc,
+                            allLocations: state.featureLocations
+                        )
+                    }
+                    return .none
+                case .locationSelector(let lAction):
+                    switch lAction {
+                        case .presented(let action):
+                            switch action {
+                                case .locationSelected(let location):
+                                    if let location {
+                                        state.locationSelectorState = nil
+                                        return .send(.locationSelected(location))
+                                    }
+                                case .close:
+                                    state.locationSelectorState = nil
+                            }
+                            return .none
+                        default:
+                            return .none
+                    }
                 case .featureDetail(let pAction):
                     switch pAction {
                         case .presented(let action):
                             if action == FeatureDetailReducer.Action.close {
                                 state.featureDetailState = nil
                             }
+                            return .none
                         default:
                             return .none
                     }
-                    return .none
                 case .didAppear:
                     return environment.realm
                         .fetch(
@@ -73,15 +104,17 @@ struct MapReducer {
                     state.loading = true
                     return .none
                 case .localDataLoaded(let domainModels):
-                    state.features = domainModels
-                    return .none
+                    state.allMapFeatures = domainModels
+                    state.featureLocations = Set(state.allMapFeatures.map { $0.location }).filter { !$0.isBlank }
+                    // todo: load last location
+                    return .send(.locationSelected(state.allMapFeatures.first?.location))
                 case .deselectFeature:
                     state.selectedFeatureId = nil
                     state.selectedFeature = nil
                     return .none
                 case .featureSelected(let selectedFeatureId):
                     if let fId = selectedFeatureId,
-                       let selectedFeature = state.features.first(where: { f in f.id == fId }) {
+                       let selectedFeature = state.allMapFeatures.first(where: { f in f.id == fId }) {
                         state.selectedFeature = selectedFeature
                         state.featureDetailState = FeatureDetailReducer.State(selectedFeature: selectedFeature)
                     }
@@ -90,6 +123,9 @@ struct MapReducer {
         }
         .ifLet(\.$featureDetailState, action: /Action.featureDetail) {
             FeatureDetailReducer()
+        }
+        .ifLet(\.$locationSelectorState, action: /Action.locationSelector) {
+            LocationSelectorReducer()
         }
     }
 }

@@ -24,17 +24,19 @@ struct MapView: View {
     
     var body: some View {
         WithViewStore(self.store,
-                      observe: { (features: $0.features, selectedFeatureId: $0.selectedFeatureId ) },
+                      observe: { ( mapFeatures: $0.displayedMapFeatures,
+                                   selectedLocation: $0.selectedLocation,
+                                   selectedFeatureId: $0.selectedFeatureId) },
                       removeDuplicates: ==
         ) { viewStore in
-            ZStack(alignment: .bottom) {
+            ZStack(alignment: .top) {
                 Map(bounds: region,
                     interactionModes: .all,
                     selection: viewStore.binding(
                         get: \.selectedFeatureId,
                         send: MapReducer.Action.featureSelected)
                 ) {
-                    ForEach(viewStore.features, id: \.id) { feature in
+                    ForEach(viewStore.mapFeatures) { feature in
                         Annotation(feature.commonName,
                                    coordinate: CLLocationCoordinate2D(latitude: feature.latitude,
                                                                       longitude: feature.longitude),
@@ -43,19 +45,45 @@ struct MapView: View {
                                 .foregroundColor(Colors.brightGreen)
                                 .frame(width: 10, height: 10)
                         }
-                                   .tag(feature.id)
                     }
                 }
                 .mapStyle(.hybrid(elevation: .realistic))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .onAppear() {
-                    viewStore.send(.didAppear)
+                if let l = viewStore.selectedLocation {
+                    ZStack(alignment: .center) {
+                        Rectangle()
+                            .fill(Colors.offWhite)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .ignoresSafeArea()
+                        HStack(alignment: .center) {
+                            Text("**\(l)**")
+                            Image(systemName: "chevron.up.chevron.down")
+                        }
+                        .onTapGesture(perform: {
+                            viewStore.send(.locationTapped)
+                        })
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 65)
                 }
-                .sheet(
-                    store: self.store.scope(state: \.$featureDetailState, action: MapReducer.Action.featureDetail)
-                ) { store in
-                    FeatureDetailView(store: store)
-                }
+            }
+            .onAppear() {
+                viewStore.send(.didAppear)
+            }
+            .sheet(
+                store: self.store.scope(state: \.$featureDetailState, action: MapReducer.Action.featureDetail)
+            ) { store in
+                FeatureDetailView(store: store)
+                    .presentationDetents([.medium])
+                    .presentationBackground(Colors.blackish.opacity(0.85))
+                
+            }
+            .sheet(
+                store: self.store.scope(state: \.$locationSelectorState, action: MapReducer.Action.locationSelector)
+            ) { store in
+                LocationSelectorView(store: store)
+                    .presentationDetents([.medium])
+                    .presentationBackground(Colors.blackish.opacity(0.85))
+                
             }
         }
     }
