@@ -47,7 +47,7 @@ struct MapView: View {
                         }
                     }
                 }
-                .mapStyle(.hybrid(elevation: .realistic))
+                .mapStyle(.imagery)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 if let l = viewStore.selectedLocation {
                     ZStack(alignment: .center) {
