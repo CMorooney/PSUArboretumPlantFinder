@@ -12,26 +12,19 @@ import ComposableArchitecture
 struct MapView: View {
     let store: StoreOf<MapReducer>
     
-    @State private var region = MapCameraBounds(
-        centerCoordinateBounds: MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 40.805597, longitude: -77.869007),
-            // Deltas are in lat/lng degrees.... one lat degree is ~111,000 meters soooooo yeah
-            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        ),
-        minimumDistance: 1,
-        maximumDistance: 1500
-    )
-    
     var body: some View {
         WithViewStore(self.store,
                       observe: { ( mapFeatures: $0.displayedMapFeatures,
                                    selectedLocation: $0.selectedLocation,
-                                   selectedFeatureId: $0.selectedFeatureId) },
+                                   selectedFeatureId: $0.selectedFeatureId,
+                                   mapCamPos: $0.mapCamPos )
+                      },
                       removeDuplicates: ==
         ) { viewStore in
             ZStack(alignment: .top) {
-                Map(bounds: region,
-                    interactionModes: .all,
+                Map(position: viewStore.binding(
+                        get: \.mapCamPos,
+                        send: MapReducer.Action.mapCamSet),
                     selection: viewStore.binding(
                         get: \.selectedFeatureId,
                         send: MapReducer.Action.featureSelected)

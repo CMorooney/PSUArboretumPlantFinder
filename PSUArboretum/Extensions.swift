@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import MapKit
 import SwiftUI
 import RealmSwift
 import ComposableArchitecture
@@ -30,6 +31,24 @@ extension String {
   var isBlank: Bool {
     return allSatisfy({ $0.isWhitespace })
   }
+}
+
+extension MapCameraBounds: Equatable {
+    public static func == (lhs: MapCameraBounds, rhs: MapCameraBounds) -> Bool {
+        // good enough for our specific use case, honestly
+        return true
+    }
+}
+
+extension MKMapRect {
+    init(arboretumFeatures: [ArboretumFeature]) {
+        self = arboretumFeatures
+            .map({ MKMapRect(origin: MKMapPoint(CLLocationCoordinate2D(
+                                                    latitude: $0.latitude,
+                                                    longitude: $0.longitude)),
+                             size: MKMapSize(width: 0, height: 0)) })
+            .reduce(MKMapRect.null, { $0.union($1) })
+    }
 }
 
 extension Realm {

@@ -7,10 +7,9 @@
 
 import Foundation
 import ComposableArchitecture
-import _MapKit_SwiftUI
+import MapKit
 import SwiftUI
 import RealmSwift
-
 
 @Reducer
 struct MapReducer {
@@ -18,6 +17,16 @@ struct MapReducer {
     
     struct State: Equatable {
         var loading: Bool = false
+        
+        var mapCamPos = MapCameraPosition.region(
+            MKCoordinateRegion(
+                // children's garden which happens to be the alphabetical default to selected location
+                // which is also not saved x-session atm
+                center: CLLocationCoordinate2D(latitude: 40.8059902, longitude: -77.8694468),
+                // Deltas are in lat/lng degrees.... one lat degree is ~111,000 meters soooooo yeah
+                span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+            )
+        )
         
         var allMapFeatures: [ArboretumFeature] = []
         var displayedMapFeatures: [ArboretumFeature] = []
@@ -39,6 +48,7 @@ struct MapReducer {
         case featureSelected(Int?)
         case deselectFeature
         case locationTapped
+        case mapCamSet(MapCameraPosition)
         case locationSelector(PresentationAction<LocationSelectorReducer.Action>)
         case featureDetail(PresentationAction<FeatureDetailReducer.Action>)
     }
@@ -57,6 +67,10 @@ struct MapReducer {
                 case .locationSelected(let newLocation):
                     state.selectedLocation = newLocation
                     state.displayedMapFeatures = state.allMapFeatures.filter { $0.location == newLocation }
+                    state.mapCamPos = MapCameraPosition.region(
+                        MKCoordinateRegion(MKMapRect(arboretumFeatures: state.displayedMapFeatures))
+                    )
+                    
                     return .none
                 case .locationTapped:
                     if let loc = state.selectedLocation {
@@ -115,9 +129,23 @@ struct MapReducer {
                 case .featureSelected(let selectedFeatureId):
                     if let fId = selectedFeatureId,
                        let selectedFeature = state.allMapFeatures.first(where: { f in f.id == fId }) {
+                        
                         state.selectedFeature = selectedFeature
                         state.featureDetailState = FeatureDetailReducer.State(selectedFeature: selectedFeature)
+                        
+                        state.mapCamPos = MapCameraPosition.region(
+                            MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: selectedFeature.latitude, longitude: selectedFeature.longitude),
+                                // Deltas are in lat/lng degrees.... one lat degree is ~111,000 meters soooooo yeah
+                                span: MKCoordinateSpan(latitudeDelta: 0.000001, longitudeDelta: 0.000001)
+                            )
+                        )
                     }
+                    return .none
+                case .mapCamSet(_):
+                    // nothing to do here
+                    // but the compiler was complaining about the binding being too complex to understand
+                    // in MapView until I gave it something to `send`
                     return .none
             }
         }
