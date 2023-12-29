@@ -7,12 +7,13 @@
 
 import SwiftUI
 import MapKit
+import RealmSwift
 import ComposableArchitecture
 
 struct MapView: View {
     let store: StoreOf<MapReducer>
     
-    @State private var viewLoaded = false
+    @State var notificationToken: NotificationToken?
     
     var body: some View {
         WithViewStore(self.store,
@@ -20,13 +21,13 @@ struct MapView: View {
                                    selectedLocation: $0.selectedLocation,
                                    selectedFeatureId: $0.selectedFeatureId,
                                    mapCamPos: $0.mapCamPos )
-                      },
+        },
                       removeDuplicates: ==
         ) { viewStore in
             ZStack(alignment: .top) {
                 Map(position: viewStore.binding(
-                        get: \.mapCamPos,
-                        send: MapReducer.Action.mapCamSet),
+                    get: \.mapCamPos,
+                    send: MapReducer.Action.mapCamSet),
                     selection: viewStore.binding(
                         get: \.selectedFeatureId,
                         send: MapReducer.Action.featureSelected)
@@ -62,9 +63,24 @@ struct MapView: View {
                 }
             }
             .onAppear() {
-                if !viewLoaded {
-                    viewLoaded = true
-                    viewStore.send(.didAppear)
+                if notificationToken == nil {
+                    let realm = try! Realm()
+                    let results = realm.objects(RealmArboretumFeature.self)
+                    notificationToken = results.observe { changes in
+                        switch changes {
+                            case .initial(let realmResults):
+                                viewStore.send(.mapDataLoaded(Array(realmResults.map { rr in ArboretumFeature(rr) })))
+                                break
+                            case .update:
+                                // todo: more granular update changes
+                                // but for now we'll just re-query
+                                viewStore.send(.loadMapData)
+                                break
+                            case .error:
+                                // todo: alert, log
+                                break
+                        }
+                    }
                 }
             }
             .sheet(
