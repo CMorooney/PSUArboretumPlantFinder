@@ -3,7 +3,9 @@
 ![](img/map1.png)
 ![](img/map2.png)
 ![](img/detail.png)
-![](img/loc_selection.png)
+![](img/location_selector.png)
+![](img/about.png)
+![](img/settings.png)
 
 ---
 
