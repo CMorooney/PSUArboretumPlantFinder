@@ -42,6 +42,8 @@ struct AppReducer {
     
     enum Tab: Equatable {
         case map
+        case about
+        case settings
     }
     
     let environment = Environment()

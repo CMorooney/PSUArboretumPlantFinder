@@ -19,13 +19,22 @@ struct AppView: View {
         ){ viewStore in
             TabView(
                 selection: viewStore.binding(
-                    send: { AppReducer.Action.tabSelected($0) }
+                    send: AppReducer.Action.tabSelected
                 )
             ) {
                 MapView(store: self.store.scope(state: \.mapState, action: AppReducer.Action.map))
                     .tabItem {
                         Label("map", systemImage: "map.circle")
                     }
+                SettingsView()
+                    .tabItem {
+                        Label("settings", systemImage: "person.crop.circle.fill")
+                    }
+                AboutView()
+                    .tabItem {
+                        Label("about", systemImage: "questionmark.circle")
+                    }
+                
             }
             .onAppear {
                 viewStore.send(.loadData)

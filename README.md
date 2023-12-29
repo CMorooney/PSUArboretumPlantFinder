@@ -5,7 +5,24 @@
 ![](img/detail.png)
 ![](img/loc_selection.png)
 
-(ios playground with latest swiftui mapkit , [TheComposableArchitecture](https://github.com/pointfreeco/swift-composable-architecture), and [Realm](https://realm.io/realm-swift/))
+---
+
+**Please Note:**
+This application is **not** developed by or in association with
+the Pennsylvania State University (PSU) or the Arboretum _at_ PSU.
+It exists purely as an educational tool for building a map-based
+application with the latest:
+
+- swiftui mapkit
+- [TheComposableArchitecture](https://github.com/pointfreeco/swift-composable-architecture)
+- [Realm](https://realm.io/realm-swift/)
+
+The data displayed is meticulously managed by [the hard working Arboretum staff](https://arboretum.psu.edu/about/staff/)
+and was pulled from their own public [interactive web map](https://datacommons.maps.arcgis.com/apps/webappviewer/index.html?id=88d9267530dc48db8635703130bb084e).
+
+No work is being done by this developer to manage collections or the related data.
+
+---
 
 I ripped plant finder data from [the interactive arcGIS/ESRI map](https://datacommons.maps.arcgis.com/apps/webappviewer/index.html?id=88d9267530dc48db8635703130bb084e)
 and am just loading locally for now. (raw.json in Data dir)
