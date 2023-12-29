@@ -16,7 +16,12 @@ struct MapReducer {
     let environment = Environment()
     
     struct State: Equatable {
-        var loading: Bool = false
+        var mapLoading: Bool = false
+        var userSettingsLoading: Bool = false
+        
+        var loading: Bool {
+            mapLoading || userSettingsLoading
+        }
         
         var mapCamPos = MapCameraPosition.region(
             MKCoordinateRegion(
@@ -27,6 +32,8 @@ struct MapReducer {
                 span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
             )
         )
+        
+        var lastSessionData: RealmLastSessionValues?
         
         var allMapFeatures: [ArboretumFeature] = []
         var displayedMapFeatures: [ArboretumFeature] = []
@@ -41,14 +48,26 @@ struct MapReducer {
     }
     
     enum Action: Equatable {
+        case none
         case didAppear
-        case localDataBeganLoad
-        case localDataLoaded([ArboretumFeature])
+        
+        case mapDataBeganLoad
+        case mapDataLoaded([ArboretumFeature])
+        
+        case loadUserSettings
+        case userSettingsLoaded(UserSettings)
+        
+        case locationTapped
         case locationSelected(String?)
+        
         case featureSelected(Int?)
         case deselectFeature
-        case locationTapped
+        
+        case loadPreviousSessionData
+        case previousSessionDataLoaded(RealmLastSessionValues?)
+        
         case mapCamSet(MapCameraPosition)
+        
         case locationSelector(PresentationAction<LocationSelectorReducer.Action>)
         case featureDetail(PresentationAction<FeatureDetailReducer.Action>)
     }
@@ -64,6 +83,8 @@ struct MapReducer {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                case .none: return .none
+                    
                 case .locationSelected(let newLocation):
                     state.selectedLocation = newLocation
                     state.displayedMapFeatures = state.allMapFeatures.filter { $0.location == newLocation }
@@ -71,7 +92,14 @@ struct MapReducer {
                         MKCoordinateRegion(MKMapRect(arboretumFeatures: state.displayedMapFeatures))
                     )
                     
-                    return .none
+                    if state.lastSessionData == nil {
+                        state.lastSessionData=RealmLastSessionValues(lastSelectedLocation: newLocation)
+                    }
+                    
+                    return environment.realm.save(RealmLastSessionValues(id: state.lastSessionData!.id,
+                                                                         lastSelectedLocation: newLocation)).map { signal in
+                        return .none
+                    }
                 case .locationTapped:
                     if let loc = state.selectedLocation {
                         state.locationSelectorState = LocationSelectorReducer.State(
@@ -112,16 +140,50 @@ struct MapReducer {
                             RealmArboretumFeature.self
                         )
                         .map { objects -> Action in
-                            return .localDataLoaded(Array(objects.map { f in ArboretumFeature(f) }))
+                            return .mapDataLoaded(Array(objects.map { f in ArboretumFeature(f) }))
                         }
-                case .localDataBeganLoad:
-                    state.loading = true
+                    
+                case .mapDataBeganLoad:
+                    state.mapLoading = true
                     return .none
-                case .localDataLoaded(let domainModels):
+                case .mapDataLoaded(let domainModels):
+                    state.mapLoading = false
                     state.allMapFeatures = domainModels
                     state.featureLocations = Set(state.allMapFeatures.map { $0.location }).filter { !$0.isBlank }
-                    // todo: load last location
-                    return .send(.locationSelected(state.allMapFeatures.first?.location))
+                    return .send(.loadUserSettings)
+                    
+                case .loadUserSettings:
+                    state.userSettingsLoading = true
+                    return environment.realm
+                        .fetch(RealmUserSettings.self)
+                        .map { objects -> Action in
+                            if let s = objects.first {
+                                return .userSettingsLoaded(UserSettings(from: s))
+                            } else {
+                                return .userSettingsLoaded(UserSettings.createDefault())
+                            }
+                        }
+                    
+                case .userSettingsLoaded(let uSettings):
+                    state.userSettingsLoading = false
+                    switch uSettings.defaultLocationSetting {
+                        case .lastSelected:
+                            return .send(.loadPreviousSessionData)
+                        case .specific(let s):
+                            return .send(.locationSelected(s))
+                    }
+                    
+                case .loadPreviousSessionData:
+                    return environment.realm
+                        .fetch(RealmLastSessionValues.self)
+                        .map { objects -> Action in
+                            return .previousSessionDataLoaded(objects.first)
+                        }
+                    
+                case .previousSessionDataLoaded(let sessionData):
+                    state.lastSessionData = sessionData
+                    return .send(.locationSelected(state.lastSessionData?.lastSelectedLocation))
+                    
                 case .deselectFeature:
                     state.selectedFeatureId = nil
                     state.selectedFeature = nil

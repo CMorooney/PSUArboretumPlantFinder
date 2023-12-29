@@ -16,7 +16,7 @@ struct AboutView: View {
                 alignment: .leading,
                 spacing: 15
             ) {
-                AboutHeader(localizationKey: "about", imageName: "leaf.fill")
+                SimpleHeader(localizationKey: "about", imageName: "leaf.fill", separatorColor: Colors.darkGreen)
                 
                 Text("""
             **Please Note:**
@@ -43,7 +43,7 @@ struct AboutView: View {
             The data displayed is meticulously managed by [the hard working Arboretum staff](https://arboretum.psu.edu/about/staff/) and was pulled from their own public [interactive web map](https://datacommons.maps.arcgis.com/apps/webappviewer/index.html?id=88d9267530dc48db8635703130bb084e). No work is being done by this developer to manage collections or the related data.
             """)
                 
-                AboutHeader(localizationKey: "acknowledgments", imageName: "trophy.fill")
+                SimpleHeader(localizationKey: "acknowledgments", imageName: "trophy.fill", separatorColor: Colors.darkGreen)
                     .padding([.top], 10)
                 
                 Text("""
@@ -65,37 +65,10 @@ struct AboutView: View {
 
 struct AboutSeparatorView: View {
     var body: some View {
-        HStack {
-            Spacer()
-            Rectangle()
-                .fill(Colors.darkGreen)
-                .padding([.leading, .trailing], 5)
-                .frame(maxWidth: 50, maxHeight: 1)
-            Spacer()
-        }
-        .padding([.top, .bottom], 10)
-    }
-}
-
-struct AboutHeader: View {
-    let localizationKey: String
-    let imageName: String
-    
-    var body: some View {
-        VStack(
-            alignment: .leading
-        ) {
-            HStack {
-                Image(systemName: imageName)
-                Text(LocalizedStringKey(stringLiteral: localizationKey))
-                    .font(.system(size: 30))
-                    .fontWeight(.bold)
-            }
-            Rectangle()
-                .fill(Colors.darkGreen)
-                .padding([.leading, .trailing], 5)
-                .frame(maxWidth: .infinity, maxHeight: 1.5)
-        }
+        Divider()
+            .overlay(Colors.darkGreen)
+            .padding([.leading, .trailing], 5)
+            .frame(maxWidth: 50, maxHeight: 1)
     }
 }
 

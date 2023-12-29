@@ -19,6 +19,7 @@ struct AppView: View {
         ){ viewStore in
             TabView(
                 selection: viewStore.binding(
+                    get: { $0 },
                     send: AppReducer.Action.tabSelected
                 )
             ) {
@@ -26,7 +27,7 @@ struct AppView: View {
                     .tabItem {
                         Label("map", systemImage: "map.circle")
                     }
-                SettingsView()
+                SettingsView(store: self.store.scope(state: \.settingsState, action: AppReducer.Action.settings))
                     .tabItem {
                         Label("settings", systemImage: "person.crop.circle.fill")
                     }

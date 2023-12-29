@@ -33,6 +33,17 @@
         }
       }
     },
+    "**default location:**" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Default Location:**"
+          }
+        }
+      }
+    },
     "**family:** %@" : {
       "comment" : "string to be formatted with actual feature family at runtime",
       "extractionState" : "manual",
@@ -144,6 +155,17 @@
     },
     "It exists purely as an educational tool for building a map-based application with the very latest:" : {
 
+    },
+    "last selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last Selected"
+          }
+        }
+      }
     },
     "map" : {
       "localizations" : {

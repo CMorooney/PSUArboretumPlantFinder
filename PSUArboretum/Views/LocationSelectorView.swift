@@ -13,7 +13,10 @@ struct LocationSelectorView: View {
     let store: StoreOf<LocationSelectorReducer>
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store,
+                      observe: { ( allLocations: $0.allLocations, selectedLocation: $0.selectedLocation ) },
+                      removeDuplicates: ==
+        ) { viewStore in
             // these will be unique for sure
             List(viewStore.allLocations.sorted(),
                  id: \.self,

@@ -12,6 +12,8 @@ import ComposableArchitecture
 struct MapView: View {
     let store: StoreOf<MapReducer>
     
+    @State private var viewLoaded = false
+    
     var body: some View {
         WithViewStore(self.store,
                       observe: { ( mapFeatures: $0.displayedMapFeatures,
@@ -60,7 +62,10 @@ struct MapView: View {
                 }
             }
             .onAppear() {
-                viewStore.send(.didAppear)
+                if !viewLoaded {
+                    viewLoaded = true
+                    viewStore.send(.didAppear)
+                }
             }
             .sheet(
                 store: self.store.scope(state: \.$featureDetailState, action: MapReducer.Action.featureDetail)

@@ -12,20 +12,25 @@ import ComposableArchitecture
 @Reducer
 struct AppReducer {
     struct State: Equatable {
-        var loadingESRIData: Bool = false
+        var loadingMapData: Bool = false
         var selectedTab = Tab.map
         
         var mapState = MapReducer.State()
+        var settingsState = SettingsReducer.State()
     }
     
     enum Action {
         case none
         case tabSelected(Tab)
         case map(MapReducer.Action)
+        case settings(SettingsReducer.Action)
+        
         case loadData
-        case dataLoadBegan
-        case dataLoadFailed
-        case dataLoadSucceeded([ArboretumFeature])
+        
+        case loadMapData
+        case mapDataLoadBegan
+        case mapDataLoadFailed
+        case mapDataLoadSucceeded([ArboretumFeature])
     }
     
     struct Environment {
@@ -52,36 +57,41 @@ struct AppReducer {
         Scope(state: \.mapState, action: /AppReducer.Action.map) {
             MapReducer()
         }
+        Scope(state: \.settingsState, action: /AppReducer.Action.settings) {
+            SettingsReducer()
+        }
         Reduce { state, action in
             switch action {
-                case .none, .map:
+                case .none, .settings, .map:
                     return .none
                 case .tabSelected(let tab):
                     state.selectedTab = tab
                     return .none
+                    
                 case .loadData:
+                    // this will all happen serially for now
+                    // i.e, the end of the loadMapData Action logic
+                    // should invoke loading user settings
+                    return .send(.loadMapData)
+                    
+                case .loadMapData:
                     return .run { send in
-                        await send(.dataLoadBegan)
+                        await send(.mapDataLoadBegan)
                         let data = DataReader.loadData();
-                        await send(.dataLoadSucceeded(data))
+                        await send(.mapDataLoadSucceeded(data))
                     }
-                case .dataLoadBegan:
-                    state.loadingESRIData = true
+                case .mapDataLoadBegan:
+                    state.loadingMapData = true
                     return .none
-                case .dataLoadFailed:
-                    state.loadingESRIData = true
+                case .mapDataLoadFailed:
+                    state.loadingMapData = false
                     return .none
-                case .dataLoadSucceeded(let newFeatures):
-                    state.loadingESRIData = false
+                case .mapDataLoadSucceeded(let newFeatures):
+                    state.loadingMapData = false
+                    
                     let asRealmData = newFeatures.map { f in RealmArboretumFeature(f) }
                     return environment.realm.save(asRealmData).map { signal in
-                        switch signal {
-                            case .success:
-                                return .none
-                            case .failure(_):
-                                // todo: log or alert
-                                return .none
-                        }
+                        return .none
                     }
             }
         }
